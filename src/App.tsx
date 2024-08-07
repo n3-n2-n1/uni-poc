@@ -41,7 +41,7 @@ const App: React.FC = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ cart }),
+        body: JSON.stringify({ cart }), // Envío del carrito en el cuerpo de la solicitud
       });
       if (!response.ok) {
         throw new Error('Error en la solicitud');
