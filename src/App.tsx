@@ -58,7 +58,7 @@ const App: React.FC = () => {
       <h1 className="text-2xl font-bold mb-4">Unilever POC</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {products.map(product => (
-          <Product key={product.id} product={{ ...product, quantity: 0 }} onAdd={addToCart} />
+          <Product key={product.id} product={{ ...product, quantity: 1 }} onAdd={addToCart} />
         ))}
       </div>
       <div className="flex justify-center mt-6">
