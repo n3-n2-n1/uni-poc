@@ -36,7 +36,7 @@ const App: React.FC = () => {
 
   const handleOrder = async () => {
     try {
-      const response = await fetch('https://uni-back-iota.vercel.app/data', {
+      const response = await fetch('https://uni-back-iota.vercel.app/orders', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +52,7 @@ const App: React.FC = () => {
       console.error('Error al enviar el pedido:', error);
     }
   };
-
+  
   return (
     <div className="app container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Unilever POC</h1>
