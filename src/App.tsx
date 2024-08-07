@@ -26,10 +26,10 @@ const App: React.FC = () => {
       const existingProduct = prevCart.find(p => p.id === product.id);
       if (existingProduct) {
         return prevCart.map(p => 
-          p.id === product.id ? { ...p, quantity: p.quantity + product.quantity } : p
+          p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
         );
       } else {
-        return [...prevCart, product];
+        return [...prevCart, { ...product, quantity: 1 }];
       }
     });
   };
