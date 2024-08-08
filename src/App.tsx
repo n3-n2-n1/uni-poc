@@ -35,6 +35,11 @@ const App: React.FC = () => {
   };
 
   const handleOrder = async () => {
+    if (cart.length === 0) {
+      alert("El carrito está vacío");
+      return;
+    }
+
     try {
       const response = await fetch('https://uni-back-iota.vercel.app/orders', {
         method: 'POST',
@@ -43,16 +48,21 @@ const App: React.FC = () => {
         },
         body: JSON.stringify({ cart }), // Envío del carrito en el cuerpo de la solicitud
       });
+
       if (!response.ok) {
         throw new Error('Error en la solicitud');
       }
+
       const data = await response.json();
       console.log('Pedido enviado:', data);
+      alert('Pedido enviado correctamente');
+      setCart([]); // Limpiar el carrito después de enviar el pedido
     } catch (error) {
       console.error('Error al enviar el pedido:', error);
+      alert('Hubo un error al enviar el pedido. Por favor, intenta de nuevo.');
     }
   };
-  
+
   return (
     <div className="app container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Unilever POC</h1>
