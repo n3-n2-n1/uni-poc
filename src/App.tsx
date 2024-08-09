@@ -104,7 +104,7 @@ const App: React.FC = () => {
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-beige-light via-beige-dark to-white flex flex-col">
+    <div className="min-h-screen bg-gradient-to-r from-blue-light via-blue-dark to-white flex flex-col">
       <Navbar cart={cart} cartOpen={cartOpen} toggleCart={toggleCart} handleOrder={handleOrder} />
 
       {notification && (

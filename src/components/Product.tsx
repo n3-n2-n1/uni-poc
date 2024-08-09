@@ -38,7 +38,7 @@ const Product: React.FC<ProductProps> = ({ product, onAdd }) => {
       </div>
       <button 
         onClick={handleAdd} 
-        className="bg-gold-500 text-white py-2 px-6 rounded-lg w-full hover:bg-gold-600 transition-colors duration-200 shadow-md"
+        className="bg-[#6785c1] text-white py-2 px-6 rounded-lg w-full hover:bg-[#6785c1] transition-colors duration-200 shadow-md"
         disabled={quantity === 0}
       >
         Agregar
