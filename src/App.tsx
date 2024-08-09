@@ -123,7 +123,7 @@ const App: React.FC = () => {
         <div className="flex justify-center mt-8">
           <button
             onClick={handleOrder}
-            className={`w-full sm:w-auto mt-4 bg-gold-500 text-white py-2 px-12 rounded-full text-center shadow-md ${cart.length === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gold-600'}`}
+            className={`w-full sm:w-auto mt-4 bg-blue-500 text-white py-2 px-12 rounded-full text-center shadow-md ${cart.length === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-300'}`}
             disabled={cart.length === 0}
           >
             Pedir
