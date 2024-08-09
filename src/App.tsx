@@ -108,7 +108,7 @@ const App: React.FC = () => {
       <Navbar cart={cart} cartOpen={cartOpen} toggleCart={toggleCart} handleOrder={handleOrder} />
 
       {notification && (
-        <div className={`fixed top-4 left-1/2 transform -translate-x-1/2 p-4 rounded shadow-lg text-white ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
+        <div className={`fixed top-16 left-1/2 transform -translate-x-1/2 p-4 rounded shadow-lg text-white ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
           {notification.message}
         </div>
       )}
