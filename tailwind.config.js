@@ -8,10 +8,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        'beige-light': '#f5f5dc',
-        'beige-dark': '#e5e5d1',
-        'gold-500': '#d4af37',
-        'gold-600': '#c39a30',
+        'blue-light': '#a0c4ff', // Define aquí el color azul claro
+        'blue-dark': '#4361ee',  // Define aquí el color azul oscuro
       },
     },
   },
