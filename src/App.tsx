@@ -18,24 +18,46 @@ const App: React.FC = () => {
     { id: 1, name: 'Aceite', description: 'Aceite de girasol mezcla', price: 3000, image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723178507/eb3p2qe3plaayb1tvd6w.png' },
     { id: 2, name: 'Galletitas Oreo x6', description: 'Galletitas Oreo x4u', price: 1500, image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723178692/fgrpwdrierza8avhktfg.png' },
     { id: 3, name: 'Pack de bebidas Sprite Zero', description: 'Pack de 6 bebidas', price: 3260, image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723178726/nx6h8gc7lsxmjznu5ohi.webp' },
+    { 
+      id: 4, 
+      name: 'Arroz Integral', 
+      description: 'Bolsa de 1kg de arroz integral', 
+      price: 2500, 
+      image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723218569/nowjcw4tsydomgl0bliy.webp' 
+    },
+    { 
+      id: 5, 
+      name: 'Leche Descremada', 
+      description: 'Caja de 1 litro de leche descremada', 
+      price: 1800, 
+      image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723218624/n3ulouwesspo2ihdv8on.webp' 
+    },
+    { 
+      id: 6, 
+      name: 'Café en Grano', 
+      description: 'Paquete de 500g de café en grano', 
+      price: 4500, 
+      image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723218660/kbylxkil1femt0olzyqv.jpg' 
+    }
   ];
 
   const [cart, setCart] = useState<ProductType[]>([]);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
 
-  const addToCart = (product: ProductType) => {
+  const addToCart = (product: Omit<ProductType, 'quantity'>, quantity: number) => {
     setCart(prevCart => {
       const existingProduct = prevCart.find(p => p.id === product.id);
       if (existingProduct) {
         return prevCart.map(p =>
-          p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
+          p.id === product.id ? { ...p, quantity: p.quantity + quantity } : p
         );
       } else {
-        return [...prevCart, { ...product, quantity: 1 }];
+        return [...prevCart, { ...product, quantity }];
       }
     });
   };
+
 
   const handleOrder = async () => {
     if (cart.length === 0) {
@@ -91,11 +113,12 @@ const App: React.FC = () => {
         </div>
       )}
 
-      <div className="flex-grow container mx-auto p-4">
+      <div className="flex-grow container mx-auto p-4 pt-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {products.map((product) => (
-            <Product key={product.id} product={{ ...product, quantity: 1 }} onAdd={addToCart} />
+            <Product key={product.id} product={{ ...product, quantity: 1 }} onAdd={(product) => addToCart(product, product.quantity)} />
           ))}
+
         </div>
         <div className="flex justify-center mt-8">
           <button

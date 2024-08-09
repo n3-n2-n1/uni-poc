@@ -20,11 +20,11 @@ const Product: React.FC<ProductProps> = ({ product, onAdd }) => {
 
   const handleAdd = () => {
     if (quantity > 0) {
-      onAdd({ ...product, quantity });
-      setQuantity(0);  // Reset quantity after adding to cart
+      onAdd({ ...product, quantity }); // Aquí pasas la cantidad seleccionada
+      setQuantity(0);  // Opcional: Resetea la cantidad después de agregar al carrito
     }
   };
-
+  
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-6 flex flex-col items-center shadow-lg">
       <img src={product.image} alt={product.name} className="w-32 h-32 object-cover mb-4 rounded-md" />
