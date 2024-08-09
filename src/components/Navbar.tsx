@@ -49,7 +49,7 @@ export const Navbar: React.FC<NavbarProps> = ({ cart, cartOpen, toggleCart, hand
           )}
           <button
             onClick={handleOrder}
-            className={`mt-4 w-full bg-gold-500 text-white py-2 px-4 rounded-full text-center shadow-md ${cart.length === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gold-600'}`}
+            className={`mt-4 w-full bg-blue-500 text-white py-2 px-4 rounded-full text-center shadow-md ${cart.length === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-300'}`}
             disabled={cart.length === 0}
           >
             Pedir
