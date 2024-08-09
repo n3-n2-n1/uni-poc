@@ -15,8 +15,8 @@ interface ProductType {
 
 const App: React.FC = () => {
   const products: Omit<ProductType, 'quantity'>[] = [
-    { id: 1, name: 'Aceite', description: 'Aceite de oliva extra virgen', price: 3000, image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723178507/eb3p2qe3plaayb1tvd6w.png' },
-    { id: 2, name: 'Galletitas Oreo x6', description: 'Galletitas Integrales', price: 1500, image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723178692/fgrpwdrierza8avhktfg.png' },
+    { id: 1, name: 'Aceite', description: 'Aceite de girasol mezcla', price: 3000, image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723178507/eb3p2qe3plaayb1tvd6w.png' },
+    { id: 2, name: 'Galletitas Oreo x6', description: 'Galletitas Oreo x4u', price: 1500, image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723178692/fgrpwdrierza8avhktfg.png' },
     { id: 3, name: 'Pack de bebidas Sprite Zero', description: 'Pack de 6 bebidas', price: 3260, image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723178726/nx6h8gc7lsxmjznu5ohi.webp' },
   ];
 
