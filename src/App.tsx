@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Product from './components/Product';
 import './App.css';
 import { Navbar } from './components/Navbar';
@@ -21,13 +21,14 @@ const App: React.FC = () => {
   ];
 
   const [cart, setCart] = useState<ProductType[]>([]);
+  const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
 
   const addToCart = (product: ProductType) => {
     setCart(prevCart => {
       const existingProduct = prevCart.find(p => p.id === product.id);
       if (existingProduct) {
-        return prevCart.map(p => 
+        return prevCart.map(p =>
           p.id === product.id ? { ...p, quantity: p.quantity + 1 } : p
         );
       } else {
@@ -38,7 +39,7 @@ const App: React.FC = () => {
 
   const handleOrder = async () => {
     if (cart.length === 0) {
-      alert("El carrito está vacío");
+      setNotification({ message: "El carrito está vacío", type: "error" });
       return;
     }
 
@@ -57,11 +58,11 @@ const App: React.FC = () => {
 
       const data = await response.json();
       console.log('Pedido enviado:', data);
-      alert('Pedido enviado correctamente');
+      setNotification({ message: "Pedido enviado correctamente", type: "success" });
       setCart([]); // Limpiar el carrito después de enviar el pedido
     } catch (error) {
       console.error('Error al enviar el pedido:', error);
-      alert('Hubo un error al enviar el pedido. Por favor, intenta de nuevo.');
+      setNotification({ message: "Hubo un error al enviar el pedido. Por favor, intenta de nuevo.", type: "error" });
     }
   };
 
@@ -69,9 +70,27 @@ const App: React.FC = () => {
     setCartOpen(!cartOpen);
   };
 
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => {
+        setNotification(null);
+      }, 3000); // Desaparece después de 3 segundos
+
+      return () => clearTimeout(timer); // Limpiar el timeout si se desmonta el componente
+    }
+  }, [notification]);
+
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-beige-light via-beige-dark to-white flex flex-col">
       <Navbar cart={cart} cartOpen={cartOpen} toggleCart={toggleCart} handleOrder={handleOrder} />
+
+      {notification && (
+        <div className={`fixed top-4 left-1/2 transform -translate-x-1/2 p-4 rounded shadow-lg text-white ${notification.type === 'success' ? 'bg-green-500' : 'bg-red-500'}`}>
+          {notification.message}
+        </div>
+      )}
+
       <div className="flex-grow container mx-auto p-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {products.map((product) => (
@@ -90,6 +109,7 @@ const App: React.FC = () => {
       </div>
     </div>
   );
+
 };
 
 export default App;

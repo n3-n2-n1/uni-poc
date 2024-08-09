@@ -22,7 +22,7 @@ export const Navbar: React.FC<NavbarProps> = ({ cart, cartOpen, toggleCart, hand
   return (
     <nav className="bg-white shadow-lg">
       <div className="container mx-auto px-4 py-2 flex justify-between items-center">
-        <h1 className="text-xl font-bold text-gray-800">Unilever - NTT Data | POC</h1>
+        <h1 className="text-md font-bold text-gray-800">Unilever - NTT Data | POC</h1>
         <button onClick={toggleCart} className="relative">
           <span className="text-lg font-semibold">🛒 Carrito ({cart.length})</span>
           {cartOpen && (
