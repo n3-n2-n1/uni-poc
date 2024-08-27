@@ -24,11 +24,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://012078-0f.myshopify.com/admin/api/2024-01/collections/478674190640/products.json', {
-          headers: {
-            'X-Shopify-Access-Token': 'ca162fb9dba5d39e008afec0376fa826',
-          },
-        });
+        const response = await axios.get('https://uni-poc.vercel.app/api/shopify/products');
         const fetchedProducts = response.data.products.map((product: any) => ({
           id: product.id,
           name: product.title,
