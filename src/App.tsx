@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Product from './components/Product';
 import './App.css';
 import { Navbar } from './components/Navbar';
+import axios from 'axios';
 
 // Define el tipo de Producto
 interface ProductType {
@@ -14,36 +15,35 @@ interface ProductType {
 }
 
 const App: React.FC = () => {
-  const products: Omit<ProductType, 'quantity'>[] = [
-    { id: 1, name: 'Aceite', description: 'Aceite de girasol mezcla', price: 3000, image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723178507/eb3p2qe3plaayb1tvd6w.png' },
-    { id: 2, name: 'Galletitas Oreo x6', description: 'Galletitas Oreo x4u', price: 1500, image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723178692/fgrpwdrierza8avhktfg.png' },
-    { id: 3, name: 'Pack de bebidas Sprite Zero', description: 'Pack de 6 bebidas', price: 3260, image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723178726/nx6h8gc7lsxmjznu5ohi.webp' },
-    { 
-      id: 4, 
-      name: 'Arroz Integral', 
-      description: 'Bolsa de 1kg de arroz integral', 
-      price: 2500, 
-      image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723218569/nowjcw4tsydomgl0bliy.webp' 
-    },
-    { 
-      id: 5, 
-      name: 'Leche Descremada', 
-      description: 'Caja de 1 litro de leche descremada', 
-      price: 1800, 
-      image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723218624/n3ulouwesspo2ihdv8on.webp' 
-    },
-    { 
-      id: 6, 
-      name: 'Café en Grano', 
-      description: 'Paquete de 500g de café en grano', 
-      price: 4500, 
-      image: 'https://res.cloudinary.com/dh9c97uci/image/upload/v1723218660/kbylxkil1femt0olzyqv.jpg' 
-    }
-  ];
-
+  const [products, setProducts] = useState<Omit<ProductType, 'quantity'>[]>([]);
   const [cart, setCart] = useState<ProductType[]>([]);
   const [notification, setNotification] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
   const [cartOpen, setCartOpen] = useState(false);
+
+  // Fetch products from a Shopify collection
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get('https://012078-0f.myshopify.com/admin/api/2024-01/collections/478674190640/products.json', {
+          headers: {
+            'X-Shopify-Access-Token': 'ca162fb9dba5d39e008afec0376fa826',
+          },
+        });
+        const fetchedProducts = response.data.products.map((product: any) => ({
+          id: product.id,
+          name: product.title,
+          description: product.body_html,
+          price: parseFloat(product.variants[0].price),
+          image: product.image.src,
+        }));
+        setProducts(fetchedProducts);
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
 
   const addToCart = (product: Omit<ProductType, 'quantity'>, quantity: number) => {
     setCart(prevCart => {
@@ -57,7 +57,6 @@ const App: React.FC = () => {
       }
     });
   };
-
 
   const handleOrder = async () => {
     if (cart.length === 0) {
@@ -102,7 +101,6 @@ const App: React.FC = () => {
     }
   }, [notification]);
 
-
   return (
     <div className="min-h-screen bg-gradient-to-r from-blue-light to-white flex flex-col">
       <Navbar cart={cart} cartOpen={cartOpen} toggleCart={toggleCart} handleOrder={handleOrder} />
@@ -118,7 +116,6 @@ const App: React.FC = () => {
           {products.map((product) => (
             <Product key={product.id} product={{ ...product, quantity: 1 }} onAdd={(product) => addToCart(product, product.quantity)} />
           ))}
-
         </div>
         <div className="flex justify-center mt-8">
           <button
@@ -132,7 +129,6 @@ const App: React.FC = () => {
       </div>
     </div>
   );
-
 };
 
 export default App;
