@@ -24,7 +24,7 @@ const App: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('https://uni-poc.vercel.app/api/shopify/products');
+        const response = await axios.get('https://uni-back-iota.vercel.app/api/shopify/products');
         const fetchedProducts = response.data.products.map((product: any) => ({
           id: product.id,
           name: product.title,
